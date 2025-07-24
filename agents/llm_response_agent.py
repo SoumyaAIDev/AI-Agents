@@ -23,12 +23,15 @@ class LLMResponseAgent:
     def receive(self, msg: MCPMessage):
         if msg.type != "RETRIEVED_CONTEXT":
             return
+        
+        print(f"[LLMResponseAgent] Received message type: {msg.type}")
+        print(f"[LLMResponseAgent] Payload: {msg.payload}")
 
-        query = msg.payload.get("query", "").strip()
+        query = msg.payload.get("query", "")
         chunks = msg.payload.get("chunks", [])
 
-        if not query:
-            answer = "⚠️ No question provided."
+        if not query or not query.strip():
+            answer = "⚠️ No question provided in the payload."
         elif not chunks:
             answer = "⚠️ No relevant context found to answer the question."
         else:
@@ -38,16 +41,19 @@ class LLMResponseAgent:
 Context:
 {context_text}
 
-Question: {query}
+Question: {query.strip()}
 
 Answer:"""
 
             try:
+                print(f"[LLMResponseAgent] Sending prompt to LLM: {prompt[:300]}...")  
                 response = self.llm.invoke([HumanMessage(content=prompt)])
                 answer = response.content.strip()
             except Exception as e:
                 answer = f"❌ LLM error: {str(e)}"
 
+        
+        print(f"[LLMResponseAgent] Answer: {answer}")
         self.mcp.send(MCPMessage(
             sender="LLMResponseAgent",
             receiver="UI",

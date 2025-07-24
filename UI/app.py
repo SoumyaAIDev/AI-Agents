@@ -95,8 +95,8 @@ if submit:
         ))
         st.info("⏳ Query sent. Waiting for response...")
 
-        # Wait briefly for async agents to process
-        for _ in range(20):  # wait up to 2s total
+        
+        for _ in range(20):  
             time.sleep(0.1)
             if trace_id in RESPONSES:
                 break

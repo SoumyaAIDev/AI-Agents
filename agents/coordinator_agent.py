@@ -7,17 +7,17 @@ class CoordinatorAgent:
 
     def receive(self, message: MCPMessage):
         if message.type == "USER_UPLOAD":
-            # Save the list of files against trace_id
+        
             self.session_state[message.trace_id] = {"files": message.payload["files"]}
             self._dispatch_ingestion(message)
 
         elif message.type == "DOC_PARSED":
-            # Save chunks in session state
+            
             self.session_state[message.trace_id]["chunks"] = message.payload["chunks"]
             self._dispatch_query(message.trace_id)
 
         elif message.type == "USER_QUERY":
-            # Save query
+            
             self.session_state[message.trace_id]["query"] = message.payload["query"]
             self._dispatch_query(message.trace_id)
 
@@ -26,8 +26,7 @@ class CoordinatorAgent:
 
         elif message.type == "FINAL_RESPONSE":
             print(f"\n✅ Final Answer: {message.payload['answer']}\n")
-            # You could extend this to update a response queue or log file
-
+            
     def _dispatch_ingestion(self, message: MCPMessage):
         self.mcp.send(MCPMessage(
             sender="CoordinatorAgent",
@@ -40,7 +39,7 @@ class CoordinatorAgent:
     def _dispatch_query(self, trace_id):
         query = self.session_state[trace_id].get("query")
         if not query:
-            return  # Wait until query is available
+            return  
 
         self.mcp.send(MCPMessage(
             sender="CoordinatorAgent",

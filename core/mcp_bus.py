@@ -9,13 +9,13 @@ class MCPMessage:
 
 class MCPBus:
     def __init__(self):
-        self.registered_agents = {}  # 🔁 renamed to match expected field
+        self.registered_agents = {}  
 
     def register(self, name, agent):
         if not hasattr(agent, 'receive') or not callable(getattr(agent, 'receive')):
             raise TypeError(f"❌ Agent '{name}' must implement a callable `.receive(message)` method.")
         self.registered_agents[name] = agent
-        agent.mcp = self  # ✅ optional: allows agents to access MCPBus via self.mcp
+        agent.mcp = self  
         print(f"✅ [MCPBus] Registered agent '{name}'")
 
     def send(self, message: MCPMessage):

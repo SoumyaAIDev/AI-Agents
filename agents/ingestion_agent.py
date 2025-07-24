@@ -16,8 +16,8 @@ class IngestionAgent:
 
         for file_path in file_paths:
             try:
-                segments = parse_file(file_path)  # List of strings
-                content = "\n".join(segments).strip()  # ✅ Join all parts safely
+                segments = parse_file(file_path)  
+                content = "\n".join(segments).strip()  
 
                 if not content:
                     print(f"⚠️ Empty content after parsing: {file_path}")

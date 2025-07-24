@@ -13,15 +13,24 @@ class RetrievalAgent:
             print(f"✅ Indexed {len(chunks)} chunks into vector store.")
 
         elif msg.type == "QUERY":
-            query = msg.payload.get("query", "")
+            query = msg.payload.get("query", "").strip()
+            if not query:
+                print("⚠️ Empty query received. Skipping.")
+                return
+
             results = self.vdb.search(query)
             print(f"🔍 Retrieved {len(results)} relevant chunks.")
 
-            # Send to LLMResponseAgent
+            top_k_chunks = [{"content": r.page_content} for r in results]
+
+            
             self.mcp.send(MCPMessage(
                 sender="RetrievalAgent",
                 receiver="LLMResponseAgent",
                 type="RETRIEVED_CONTEXT",
                 trace_id=msg.trace_id,
-                payload={"chunks": [r.page_content for r in results]}
+                payload={
+                    "query": query,
+                    "chunks": top_k_chunks
+                }
             ))
