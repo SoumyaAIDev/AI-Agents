@@ -40,7 +40,7 @@ ui_agent.receive = ui_receive
 mcp.register("UI", ui_agent)
 
 # === Streamlit UI ===
-st.title("🧠 Agentic RAG Chatbot")
+st.title("Agentic RAG Chatbot")
 
 # Upload
 uploaded_files = st.file_uploader(

@@ -136,8 +136,17 @@ python run.py
 
 
 ```
-Q: "Summarize the KPIs mentioned in the Q2 report."
-A: "The KPIs mentioned are revenue growth (12%), customer retention (87%), and average deal size..."
+Q: "List top 10 smart contract hacks?"
+A: "1. Alpha Homora Exploit (2021) - $37M stolen via Cream Finance due to an unsecured leveraged loop.
+2. Uranium Finance Hack (2021) - $50M drained due to a bug in token swap logic during migration.
+3. Poly Network Exploit (2021) - $610M stolen due to insecure owner verification in cross-chain contracts.
+4. Cream Finance Hacks (2021) - Over $130M lost due to reentrancy and flash loan abuses.
+5. BadgerDAO Frontend Attack (2021) - $120M drained from users due to a CDN hijack.
+6. Wormhole Bridge Hack (2022) - $320M stolen due to missing guardian signature checks.
+7. Ronin Network Hack (2022) - $625M stolen due to validator key compromise.
+8. Nomad Bridge Exploit (2022) - ~$200M drained due to an initialization bug.
+9. BNB Chain Hack (2022) - ~$570M in BNB created due to forged proofs.
+10. Ankr Protocol Exploit (2022) - $5M+ drained due to a private key leak."
 ```
 
 
